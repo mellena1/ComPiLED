@@ -1,8 +1,8 @@
 ## Microservices
-* led_frontend - Hosts webpage to allow changing of configs.
-* led_api - Receive POSTS from the web UI and does stuff with them. Does logic for what to do with the different messages from led_frontend.
-* led_runner - Deals with interfacing with the LEDs.
-* led_config_manager - Gets configs from the API and saves them (or deletes them). Also hosts a server for led_runner to get configs from.
+* `led_frontend` - Hosts webpage to allow changing of configs.
+* `led_api` - Receive POSTS from the web UI and does stuff with them. Does logic for what to do with the different messages from led_frontend.
+* `led_runner` - Deals with interfacing with the LEDs.
+* `led_config_manager` - Gets configs from the API and saves them (or deletes them). Also hosts a server for led_runner to get configs from.
 
 ## Workflow
 ### Make config
