@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  user: pi
+  roles:
+    - { role: wifi, tags: ['pi_setup'] }
+    - { role: docker, tags: ['pi_setup', 'docker'] }
+    - { role: neopixels, tags: ['code'] }
+    - { role: ssh_setup, tags: ['pi_setup'] }
