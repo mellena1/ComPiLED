@@ -1,0 +1,6 @@
+---
+- hosts: all
+  become: yes
+  user: pi
+  roles:
+    - ssh_setup
