@@ -2,5 +2,8 @@
 - hosts: all
   become: yes
   user: pi
+  vars_files:
+    - group_vars/secrets.yml
   roles:
+    - wifi
     - ssh_setup

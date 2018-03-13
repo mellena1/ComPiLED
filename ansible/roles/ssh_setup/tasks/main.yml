@@ -7,9 +7,6 @@
   with_file:
     - ComPiLED_rsa.pub
 
-- name: Delete login password
-  command: passwd -d pi
-
 - name: Change hostname
   hostname:
     name: ComPiLED
@@ -19,3 +16,6 @@
     path: /etc/hosts
     regexp: 'raspberrypi'
     replace: 'ComPiLED'
+
+- name: Delete login password
+  command: passwd -d pi
