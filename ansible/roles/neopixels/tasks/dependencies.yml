@@ -10,8 +10,13 @@
   git:
     repo: "https://github.com/jgarff/rpi_ws281x.git"
     dest: /tmp/rpi_ws281x
+
+- name: Build the c lib
+  command: scons
+  args:
+    chdir: /tmp/rpi_ws281x
     
-- name: Build the library
+- name: Build the python library
   command: python setup.py build
   args:
     chdir: /tmp/rpi_ws281x/python
