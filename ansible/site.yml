@@ -7,3 +7,4 @@
   roles:
     - wifi
     - ssh_setup
+    - neopixels

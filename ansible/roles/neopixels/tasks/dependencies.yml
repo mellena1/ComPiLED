@@ -9,10 +9,14 @@
 - name: Get git repo
   git:
     repo: "https://github.com/jgarff/rpi_ws281x.git"
-    dest: /tmp
+    dest: /tmp/rpi_ws281x
     
 - name: Build the library
-  command: python /tmp/rpi_ws281x/setup.py build
+  command: python setup.py build
+  args:
+    chdir: /tmp/rpi_ws281x/python
 
 - name: Install the library
-  command: python /tmp/rpi_ws281x/setup.py install
+  command: python setup.py install
+  args:
+    chdir: /tmp/rpi_ws281x/python
