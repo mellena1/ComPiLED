@@ -2,10 +2,8 @@
 - hosts: all
   become: yes
   user: pi
-  vars_files:
-    - group_vars/secrets.yml
   roles:
-    - wifi
-    - docker
-    - ssh_setup
-    #- neopixels
+    - { role: wifi, tags: ['pi_setup'] }
+    - { role: docker, tags: ['pi_setup', 'docker'] }
+    - { role: neopixels, tags: ['code'] }
+    - { role: ssh_setup, tags: ['pi_setup'] }

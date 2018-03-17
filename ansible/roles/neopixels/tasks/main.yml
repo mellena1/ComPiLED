@@ -1,3 +1,20 @@
 ---
-- include_vars: variables.yml
-- include_tasks: dependencies.yml
+- name: Make ComPiLED dir
+  file:
+    path: /opt/ComPiLED
+    state: directory
+    mode: 0700
+    owner: pi
+    group: pi
+
+- name: Copy over ComPiLED
+  copy:
+    src: "../../../../{{ item }}"
+    dest: /opt/ComPiLED
+    mode: 0700
+    owner: pi
+    group: pi
+  with_items:
+    - docs
+    - docker-compose.yml
+    - led_controller

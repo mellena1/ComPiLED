@@ -25,10 +25,21 @@
     state: present
     update_cache: yes
 
-- name: Install pip
-  apt:
-    name: python-pip
+- name: Create docker group
+  group:
+    name: docker
     state: present
+
+- name: Add pi user to the docker group
+  user:
+    name: pi
+    groups: docker
+    append: yes
+
+- name: Install pip
+  easy_install:
+    name: pip
+    state: latest
 
 - name: Install Docker-Compose
   pip:

@@ -1,7 +1,0 @@
----
-apt_packages:
-  - git
-  - scons
-  - python-dev
-  - python-pip
-  - swig

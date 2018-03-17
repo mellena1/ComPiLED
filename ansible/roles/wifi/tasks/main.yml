@@ -1,4 +1,6 @@
 ---
+- include_vars: secrets.yml
+
 - name: Add wlan0 to /etc/network/interfaces
   blockinfile:
     path: /etc/network/interfaces
