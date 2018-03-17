@@ -6,5 +6,6 @@
     - group_vars/secrets.yml
   roles:
     - wifi
+    - docker
     - ssh_setup
-    - neopixels
+    #- neopixels
