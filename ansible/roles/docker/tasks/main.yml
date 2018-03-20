@@ -1,29 +1,8 @@
 ---
-- name: Install packages for apt over https
-  apt:
-    name: "{{ item }}"
-    state: present
-    update_cache: yes
-  with_items:
-    - apt-transport-https
-    - ca-certificates
-    - software-properties-common
-
-- name: Add docker gpg key
-  apt_key:
-    url: https://yum.dockerproject.org/gpg
-    state: present
-
-- name: Add docker apt repo
-  apt_repository:
-    repo: "deb https://apt.dockerproject.org/repo/ raspbian-jessie main"
-    state: present
-
-- name: Install Docker
-  apt:
-    name: docker-engine
-    state: present
-    update_cache: yes
+- name: Install docker
+  shell: curl -fsSL get.docker.com -o /tmp/get-docker.sh && sh /tmp/get-docker.sh
+  args:
+    creates: /usr/bin/docker
 
 - name: Create docker group
   group:
@@ -37,7 +16,12 @@
     append: yes
 
 - name: Install pip
-  easy_install:
+  apt:
+    name: python-pip
+    state: present
+
+- name: Update pip
+  pip:
     name: pip
     state: latest
 

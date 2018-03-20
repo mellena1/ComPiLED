@@ -34,5 +34,6 @@ RUN python setup.py build && python setup.py install
 
 # Switch back to / for working dir
 WORKDIR /
+COPY led_test.py .
 #RUN rm -rf /rpi_ws281x
-CMD ["python", "/rpi_ws281x/python/examples/strandtest.py"]
+CMD ["python", "led_test.py", "-c"]
