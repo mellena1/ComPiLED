@@ -1,0 +1,21 @@
+---
+- name: Add authorized key for ssh
+  authorized_key:
+    user: pi
+    state: present
+    key: '{{ item }}'
+  with_file:
+    - ComPiLED_rsa.pub
+
+- name: Change hostname
+  hostname:
+    name: ComPiLED
+
+- name: Edit /etc/hosts
+  replace:
+    path: /etc/hosts
+    regexp: 'raspberrypi'
+    replace: 'ComPiLED'
+
+- name: Delete login password
+  command: passwd -d pi
