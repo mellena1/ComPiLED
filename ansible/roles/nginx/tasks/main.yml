@@ -1,0 +1,47 @@
+---
+- name: Install passlib
+  apt:
+    name: python-passlib
+    state: present
+
+- include_vars: secrets.yml
+
+- name: Make nginx htpasswd file
+  htpasswd:
+    path: /etc/nginx/htpasswd
+    name: "{{ NGINX_USER }}"
+    password: "{{ NGINX_PASSWORD }}"
+    owner: root
+    group: www-data
+    mode: 0640
+
+- name: Install pyOpenSSL
+  apt:
+    name: python-openssl
+    state: present
+
+- name: Make ssl dirs
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /etc/ssl/crt
+    - /etc/ssl/csr
+    - /etc/ssl/private
+
+- name: Generate openssl privatekey
+  openssl_privatekey:
+    path: /etc/ssl/private/compiled.pem
+
+- name: Generate openssl csr
+  openssl_csr:
+    path: /etc/ssl/csr/compiled.csr
+    privatekey_path: /etc/ssl/private/compiled.pem
+    common_name: compiled.local
+
+- name: Generate a Self Signed OpenSSL certificate
+  openssl_certificate:
+    path: /etc/ssl/crt/compiled.crt
+    privatekey_path: /etc/ssl/private/compiled.pem
+    csr_path: /etc/ssl/csr/compiled.csr
+    provider: selfsigned

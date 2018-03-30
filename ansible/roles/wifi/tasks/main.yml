@@ -10,14 +10,14 @@
           wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
 - name: Generate encrypted passphrases WPA WPA2
-  command: wpa_passphrase {{ item.ssid }} {{ item.password }}
+  command: wpa_passphrase '{{ item.ssid }}' '{{ item.password }}'
   when: item.password is defined
   with_items: "{{ WIFI_CONFIG }}"
   register: ENCRYPTED_WIFI_PASSWORDS
   no_log: True
 
 - name: Generate encrypted passphrases Enterprise
-  shell: echo {{ item.ssid }} | echo -n {{ item.password }} | iconv -t utf16le | openssl md4
+  shell: echo '{{ item.ssid }}' | echo -n '{{ item.password }}' | iconv -t utf16le | openssl md4
   # echo {{ item.ssid }} so that its saved in the var
   when: item.password is defined
   with_items: "{{ WIFI_CONFIG }}"
