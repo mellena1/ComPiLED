@@ -3,11 +3,15 @@ version: "3"
 services:
   led_api:
     build: /opt/ComPiLED/led_api
+    volumes:
+      - /opt/ComPiLED/configs:/configs
   led_controller:
     build: /opt/ComPiLED/led_controller
     privileged: true
     stdin_open: true
     tty: true
+    volumes:
+      - /opt/ComPiLED/current_config:/current_config
   led_frontend:
     build: /opt/ComPiLED/led_frontend
   nginx:

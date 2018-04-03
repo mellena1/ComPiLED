@@ -7,6 +7,14 @@
     owner: pi
     group: pi
 
+- include_vars: code.yml
+
+- name: Delete old code
+  file:
+    path: "/opt/ComPiLED/{{ item }}"
+    state: absent
+  with_items: "{{ code_files }}"
+
 - name: Copy over ComPiLED
   copy:
     src: "../../../../{{ item }}"
@@ -14,9 +22,4 @@
     mode: 0700
     owner: pi
     group: pi
-  with_items:
-    - docker-compose.yml
-    - led_api
-    - led_controller
-    - led_frontend
-    - nginx
+  with_items: "{{ code_files }}"

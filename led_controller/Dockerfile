@@ -29,9 +29,12 @@ COPY --from=builder /rpi_ws281x /rpi_ws281x
 # Build and install python Neopixel lib
 WORKDIR /rpi_ws281x/python
 RUN python3.6 setup.py build && python3.6 setup.py install
+RUN rm -rf /rpi_ws281x
 
 # Switch back to / for working dir
 WORKDIR /
-COPY led_test.py .
-#RUN rm -rf /rpi_ws281x
-CMD ["python3.6", "led_test.py", "-c"]
+RUN pip3.6 install flask
+COPY setup.py /setup.py
+COPY ledcontroller /ledcontroller
+RUN python3.6 setup.py install
+CMD ["ledcontroller"]

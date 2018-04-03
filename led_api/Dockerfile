@@ -1,11 +1,13 @@
 # Use go image to build the binary
-FROM hypriot/rpi-golang as builder
+FROM resin/raspberry-pi-golang as builder
 
-RUN mkdir api
-WORKDIR api
-RUN go get github.com/gorilla/mux
-COPY api.go api.go
-RUN go build && cp api /api
+RUN go get "github.com/gorilla/mux"
+RUN mkdir -p $GOPATH/src/led_api
+COPY . $GOPATH/src/led_api/
+WORKDIR $GOPATH/src/led_api
+RUN cd cmd/api && \
+    go build && \
+    cp api /api
 
 # Switch to raspbian after the go code has been compiled
 FROM resin/rpi-raspbian:jessie

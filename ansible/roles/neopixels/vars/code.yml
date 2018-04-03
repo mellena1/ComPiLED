@@ -1,0 +1,6 @@
+code_files:
+  - docker-compose.yml
+  - led_api
+  - led_controller
+  - led_frontend
+  - nginx
