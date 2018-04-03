@@ -6,3 +6,14 @@ services:
     privileged: true
     stdin_open: true
     tty: true
+  led_frontend:
+    build: /opt/ComPiLED/led_frontend
+  nginx:
+    build: /opt/ComPiLED/nginx
+    volumes:
+      - /etc/nginx/htpasswd:/etc/nginx/htpasswd:ro
+      - /etc/ssl/private/compiled.pem:/etc/nginx/compiled.pem:ro
+      - /etc/ssl/crt/compiled.crt:/etc/nginx/compiled.crt:ro
+    ports:
+      - 80:80
+      - 443:443
