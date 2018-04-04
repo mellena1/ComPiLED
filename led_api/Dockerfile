@@ -1,9 +1,16 @@
-FROM t0rx/rpi-python3.6
+# Use go image to build the binary
+FROM hypriot/rpi-golang as builder
 
-RUN pip3.6 install flask
+RUN mkdir api
+WORKDIR api
+RUN go get github.com/gorilla/mux
+COPY api.go api.go
+RUN go build && cp api /api
 
-COPY api.py ./api.py
+# Switch to raspbian after the go code has been compiled
+FROM resin/rpi-raspbian:jessie
+COPY --from=builder /api /api
+WORKDIR /
 
-ENV FLASK_APP=api.py
 EXPOSE 20001
-CMD ["flask", "run", "-p", "20001", "-h", "0.0.0.0"]
+CMD ["./api"]
