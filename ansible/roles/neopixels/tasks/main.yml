@@ -15,8 +15,8 @@
     owner: pi
     group: pi
   with_items:
-    - docs
     - docker-compose.yml
+    - led_api
     - led_controller
     - led_frontend
     - nginx

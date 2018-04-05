@@ -1,6 +1,8 @@
 ---
 version: "3"
 services:
+  led_api:
+    build: /opt/ComPiLED/led_api
   led_controller:
     build: /opt/ComPiLED/led_controller
     privileged: true
