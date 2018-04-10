@@ -1,14 +1,6 @@
 ---
 - include_vars: secrets.yml
 
-- name: Add wlan0 to /etc/network/interfaces
-  blockinfile:
-    path: /etc/network/interfaces
-    block: |
-      allow-hotplug wlan0
-      iface wlan0 inet manual
-          wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-
 - name: Generate encrypted passphrases WPA WPA2
   command: wpa_passphrase '{{ item.ssid }}' '{{ item.password }}'
   when: item.password is defined
